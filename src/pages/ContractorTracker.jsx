@@ -13,7 +13,8 @@ import {
   Filter,
   Search,
   ChevronDown,
-  ArrowUpDown
+  ArrowUpDown,
+  TrendingUp
 } from 'lucide-react';
 import { contractorData } from '../data/contractorData';
 
@@ -93,6 +94,17 @@ const ContractorTracker = () => {
       />
       
       <main className="p-6">
+        {/* Finance Dashboard Link */}
+        <div className="flex justify-end mb-6">
+          <Link 
+            to="/contractor-finance" 
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
+          >
+            <DollarSign className="mr-2 h-4 w-4" />
+            View Financial Dashboard
+          </Link>
+        </div>
+        
         {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           <StatCard 
@@ -240,13 +252,13 @@ const ContractorTracker = () => {
                         {contract.contractType}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(contract.startDate).toLocaleDateString()}
+                        {contract.startDate ? new Date(contract.startDate).toLocaleDateString() : '-'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(contract.endDate).toLocaleDateString()}
+                        {contract.endDate ? new Date(contract.endDate).toLocaleDateString() : '-'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {contract.monthlyAmount}
+                        {contract.monthlyAmount || '-'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                         <Link to={`/contractor-tracker/${index}`} className="text-primary hover:text-primary-dark">
@@ -287,15 +299,15 @@ const ContractorTracker = () => {
                     </div>
                     <div>
                       <span className="text-gray-500">Monthly:</span>
-                      <p className="font-medium">{contract.monthlyAmount}</p>
+                      <p className="font-medium">{contract.monthlyAmount || 'N/A'}</p>
                     </div>
                     <div>
                       <span className="text-gray-500">Start Date:</span>
-                      <p className="font-medium">{new Date(contract.startDate).toLocaleDateString()}</p>
+                      <p className="font-medium">{contract.startDate ? new Date(contract.startDate).toLocaleDateString() : 'N/A'}</p>
                     </div>
                     <div>
                       <span className="text-gray-500">End Date:</span>
-                      <p className="font-medium">{new Date(contract.endDate).toLocaleDateString()}</p>
+                      <p className="font-medium">{contract.endDate ? new Date(contract.endDate).toLocaleDateString() : 'N/A'}</p>
                     </div>
                   </div>
                   
