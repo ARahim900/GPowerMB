@@ -6,6 +6,7 @@ import ElectricityAnalysis from './pages/ElectricityAnalysis';
 import STPPlant from './pages/STPPlant';
 import ContractorTracker from './pages/ContractorTracker';
 import ContractorDetail from './pages/ContractorDetail';
+import ContractorFinance from './pages/ContractorFinance';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="stp-plant" element={<STPPlant />} />
           <Route path="contractor-tracker" element={<ContractorTracker />} />
           <Route path="contractor-tracker/:id" element={<ContractorDetail />} />
+          <Route path="contractor-finance" element={<ContractorFinance />} />
         </Route>
       </Routes>
     </Router>
