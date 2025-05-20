@@ -5,6 +5,7 @@ import WaterAnalysis from './pages/WaterAnalysis';
 import ElectricityAnalysis from './pages/ElectricityAnalysis';
 import STPPlant from './pages/STPPlant';
 import ContractorTracker from './pages/ContractorTracker';
+import ContractorDetail from './pages/ContractorDetail';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="electricity-analysis" element={<ElectricityAnalysis />} />
           <Route path="stp-plant" element={<STPPlant />} />
           <Route path="contractor-tracker" element={<ContractorTracker />} />
+          <Route path="contractor-tracker/:id" element={<ContractorDetail />} />
         </Route>
       </Routes>
     </Router>
