@@ -91,8 +91,8 @@ export const stpData = [
     totalInletSewage: 532,
     totalTreatedWater: 587,
     totalTSEWaterOutput: 515,
-    observations: "1. The aerator in equalization tank has abnormal noise is there",
-    maintenanceAction1: "Need to empty the tank and the problem can be identified. need to open roof top structural work also even for cleaning activity considered as confined space.",
+    observations: "The aerator in equalization tank has abnormal noise",
+    maintenanceAction1: "Need to empty the tank and the problem can be identified. need to open roof top structural work",
     maintenanceAction2: ""
   },
   {
@@ -103,7 +103,7 @@ export const stpData = [
     totalInletSewage: 532,
     totalTreatedWater: 586,
     totalTSEWaterOutput: 519,
-    observations: "1. Aerator of equalization tank has unusual sound \n2. Raw Sewage lifting pump has a problem flow low level hence we have remove the pump and done removal of debris inside the impeller. \n3. During the acitivty overflow was happened",
+    observations: "1. Aerator of equalization tank has unusual sound \n2. Raw Sewage lifting pump has a problem flow low level",
     maintenanceAction1: "Need to empty out the tank and rooftop has to be removed for the maintainance activity.",
     maintenanceAction2: "The maintenance activity over removing the debris got stuck inside Raw sewage pump was done"
   },
@@ -127,7 +127,7 @@ export const stpData = [
     totalInletSewage: 506,
     totalTreatedWater: 533,
     totalTSEWaterOutput: 468,
-    observations: "need to cheak equalaization tank aerator . that aerator has some unusual sound",
+    observations: "need to check equalization tank aerator. that aerator has some unusual sound",
     maintenanceAction1: "",
     maintenanceAction2: ""
   },
@@ -155,7 +155,6 @@ export const stpData = [
     maintenanceAction1: "today clean and cheaked aeration blower air filter - oil level and blower belt today clean and cheaked mbr blower air filter - oil level and blower belt",
     maintenanceAction2: "poured lime powder \npoured chlorine for cleaning mbr"
   },
-  // Continue with the rest of the data...
   {
     date: "2025-05-16",
     tankersCount: 9,
@@ -165,12 +164,166 @@ export const stpData = [
     totalTreatedWater: 725,
     totalTSEWaterOutput: 646,
     observations: "",
-    maintenanceAction1: "Aeration Tank and mbr filter clean and checked, checked PH and TDS of raw and product water, checked MLSS of aeration and mbr sludge water, poured chemical",
+    maintenanceAction1: "Aeration Tank and mbr filter clean and checked, checked PH and TDS of raw and product water",
     maintenanceAction2: ""
   }
 ];
 
-// Calculate monthly averages for key metrics
+// Utility function to group data by month
+export const groupDataByMonth = (data) => {
+  const monthlyData = {};
+  
+  data.forEach(day => {
+    const date = new Date(day.date);
+    const monthYear = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+    
+    if (!monthlyData[monthYear]) {
+      monthlyData[monthYear] = {
+        date: monthYear,
+        tankersCount: 0,
+        expectedTankerVolume: 0,
+        directInlineSewage: 0,
+        totalInletSewage: 0,
+        totalTreatedWater: 0,
+        totalTSEWaterOutput: 0,
+        daysWithMaintenance: 0,
+        daysCount: 0,
+        observations: [],
+        maintenanceActions: []
+      };
+    }
+    
+    monthlyData[monthYear].tankersCount += day.tankersCount;
+    monthlyData[monthYear].expectedTankerVolume += day.expectedTankerVolume;
+    monthlyData[monthYear].directInlineSewage += day.directInlineSewage;
+    monthlyData[monthYear].totalInletSewage += day.totalInletSewage;
+    monthlyData[monthYear].totalTreatedWater += day.totalTreatedWater;
+    monthlyData[monthYear].totalTSEWaterOutput += day.totalTSEWaterOutput;
+    monthlyData[monthYear].daysCount += 1;
+    
+    if (day.maintenanceAction1 || day.maintenanceAction2) {
+      monthlyData[monthYear].daysWithMaintenance += 1;
+      
+      if (day.observations) {
+        monthlyData[monthYear].observations.push({date: day.date, text: day.observations});
+      }
+      
+      if (day.maintenanceAction1) {
+        monthlyData[monthYear].maintenanceActions.push({date: day.date, text: day.maintenanceAction1});
+      }
+      
+      if (day.maintenanceAction2) {
+        monthlyData[monthYear].maintenanceActions.push({date: day.date, text: day.maintenanceAction2});
+      }
+    }
+  });
+  
+  return Object.values(monthlyData);
+};
+
+// Calculate metrics based on data period
+export const calculateSTPMetrics = (data) => {
+  // Design capacity is 750 m³/day
+  const designCapacity = 750;
+  
+  let totalInlet = 0;
+  let totalTreated = 0;
+  let totalOutput = 0;
+  let totalTankers = 0;
+  let totalTankerVolume = 0;
+  let totalDirect = 0;
+  let daysWithMaintenance = 0;
+  let maxDailyInflow = 0;
+  let avgEfficiency = 0;
+  let daysAboveTargetEfficiency = 0;
+  let daysCount = data.length;
+  
+  data.forEach(day => {
+    totalInlet += day.totalInletSewage;
+    totalTreated += day.totalTreatedWater;
+    totalOutput += day.totalTSEWaterOutput;
+    totalTankers += day.tankersCount;
+    totalTankerVolume += day.expectedTankerVolume;
+    totalDirect += day.directInlineSewage;
+    
+    if (day.maintenanceAction1 || day.maintenanceAction2) {
+      daysWithMaintenance++;
+    }
+    
+    // Calculate daily metrics
+    const dailyEfficiency = (day.totalTSEWaterOutput / day.totalInletSewage) * 100;
+    avgEfficiency += dailyEfficiency;
+    
+    // Count days with TSE output at least 85% of inlet
+    if (dailyEfficiency >= 85) {
+      daysAboveTargetEfficiency++;
+    }
+    
+    // Track maximum daily inflow
+    if (day.totalInletSewage > maxDailyInflow) {
+      maxDailyInflow = day.totalInletSewage;
+    }
+  });
+  
+  const avgDailyInlet = totalInlet / daysCount;
+  const avgDailyTreated = totalTreated / daysCount;
+  const avgDailyOutput = totalOutput / daysCount;
+  avgEfficiency = avgEfficiency / daysCount;
+  
+  return {
+    // Corrected efficiency metric (recovery rate)
+    waterRecoveryRate: (totalOutput / totalInlet) * 100,
+    // Process efficiency
+    processEfficiency: (totalOutput / totalTreated) * 100,
+    // Overall efficiency
+    overallEfficiency: (totalTreated / totalInlet) * 100,
+    // Capacity metrics
+    capacityUtilization: (avgDailyInlet / designCapacity) * 100,
+    maxCapacityUtilization: (maxDailyInflow / designCapacity) * 100,
+    // Daily averages
+    avgDailyInflow: avgDailyInlet,
+    avgDailyOutflow: avgDailyOutput,
+    avgDailyTreated: avgDailyTreated,
+    // Total volumes
+    totalInletVolume: totalInlet,
+    totalTreatedVolume: totalTreated,
+    totalOutputVolume: totalOutput,
+    // Tanker metrics
+    totalTankers: totalTankers,
+    avgTankersPerDay: totalTankers / daysCount,
+    totalTankerVolume: totalTankerVolume,
+    // Time metrics
+    totalDaysAnalyzed: daysCount,
+    daysAboveTargetEfficiency: daysAboveTargetEfficiency,
+    targetEfficiencyPercentage: (daysAboveTargetEfficiency / daysCount) * 100,
+    // Maintenance metrics
+    maintenanceFrequency: (daysWithMaintenance / daysCount) * 100,
+    // Inlet composition
+    inletComposition: {
+      tankerPercentage: (totalTankerVolume / totalInlet) * 100,
+      directPercentage: (totalDirect / totalInlet) * 100
+    }
+  };
+};
+
+// Get maintenance issues
+export const getMaintenanceIssues = (data = stpData) => {
+  const issues = [];
+  
+  data.forEach(day => {
+    if (day.observations) {
+      issues.push({
+        date: day.date,
+        issue: day.observations,
+        action: day.maintenanceAction1 || day.maintenanceAction2 || 'No action recorded'
+      });
+    }
+  });
+  
+  return issues.sort((a, b) => new Date(b.date) - new Date(a.date));
+};
+
+// Get monthly averages for key metrics
 export const getMonthlyAverages = () => {
   const monthlyData = {};
   
@@ -216,67 +369,6 @@ export const getMonthlyAverages = () => {
     avgDirectInlineSewage: Math.round(month.directInlineSewage / month.counts),
     maintenanceFrequency: Math.round((month.maintenanceCount / month.counts) * 100)
   }));
-};
-
-// Calculate efficiency metrics
-export const calculateSTPMetrics = (data = stpData) => {
-  // Capacity is 750 m³/day
-  const designCapacity = 750;
-  
-  let totalInlet = 0;
-  let totalTreated = 0;
-  let totalOutput = 0;
-  let totalTankers = 0;
-  let totalDirect = 0;
-  let daysWithMaintenance = 0;
-  
-  data.forEach(day => {
-    totalInlet += day.totalInletSewage;
-    totalTreated += day.totalTreatedWater;
-    totalOutput += day.totalTSEWaterOutput;
-    totalTankers += day.tankersCount;
-    totalDirect += day.directInlineSewage;
-    
-    if (day.maintenanceAction1 || day.maintenanceAction2) {
-      daysWithMaintenance++;
-    }
-  });
-  
-  const avgInlet = totalInlet / data.length;
-  const avgTreated = totalTreated / data.length;
-  const avgOutput = totalOutput / data.length;
-  
-  return {
-    overallEfficiency: (totalTreated / totalInlet) * 100,
-    capacityUtilization: (avgInlet / designCapacity) * 100,
-    waterRecoveryRate: (totalOutput / totalTreated) * 100,
-    avgDailyInflow: avgInlet,
-    avgDailyOutflow: avgOutput,
-    avgDailyTreated: avgTreated,
-    totalDaysAnalyzed: data.length,
-    maintenanceFrequency: (daysWithMaintenance / data.length) * 100,
-    inletComposition: {
-      tankerPercentage: (totalTankers * 20) / totalInlet * 100,
-      directPercentage: totalDirect / totalInlet * 100
-    }
-  };
-};
-
-// Get top maintenance issues
-export const getMaintenanceIssues = () => {
-  const issues = [];
-  
-  stpData.forEach(day => {
-    if (day.observations) {
-      issues.push({
-        date: day.date,
-        issue: day.observations,
-        action: day.maintenanceAction1 || day.maintenanceAction2 || 'No action recorded'
-      });
-    }
-  });
-  
-  return issues.sort((a, b) => new Date(b.date) - new Date(a.date));
 };
 
 // Get date ranges for filtering
