@@ -1,112 +1,76 @@
-# GPowerMB Dashboard
+# GPowerMB - Muscat Bay Utility Management Dashboard
 
-Muscat Bay Utility Management System - Modern SAAS dashboard application for managing water, electricity, STP plant and contractor data.
+A modern SAAS dashboard application for managing water, electricity, STP plant, and contractor data for Muscat Bay.
 
-## Project Sections
+## Project Overview
 
-1. **Water Analysis**: Comprehensive water supply and consumption analysis
-2. **Electricity Analysis**: Power consumption tracking and analysis
-3. **STP Plant**: Sewage treatment plant monitoring
-4. **Contractor Tracker**: Contractor management and performance tracking
+GPowerMB is a utility management dashboard built with React and Tailwind CSS. It features four main sections:
 
-## Implementation Status
+1. **Water Analysis** - Comprehensive water supply and consumption analysis
+2. **Electricity Analysis** - Detailed electricity usage tracking and reporting
+3. **STP Plant** - Sewage treatment plant monitoring and analytics
+4. **Contractor Tracker** - Management of contractor activities and finances
 
-- ✅ Contractor Tracker
-- ✅ Electricity Analysis
-- ✅ Water Analysis
-- ✅ STP Plant
+## Technology Stack
 
-## Technical Stack
-
-- **Frontend**: React, Tailwind CSS
-- **Charting**: Recharts
-- **Icons**: Lucide React
-- **Routing**: React Router
-- **Primary Color**: #4E4456
+- React.js
+- React Router
+- Tailwind CSS
+- Recharts for data visualization
+- Lucide React for icons
 
 ## Project Structure
 
 ```
-src/
-├── components/         # Reusable UI components
-│   └── water/          # Water Analysis components
-├── data/               # Data files for each section
-├── layouts/            # Page layouts (sidebar, header)
-├── pages/              # Main page components
-│   ├── Dashboard.jsx
-│   ├── WaterAnalysis.jsx
-│   ├── ElectricityAnalysis.jsx
-│   ├── STPPlant.jsx
-│   └── ContractorTracker.jsx
-├── styles/             # CSS styling
-│   └── WaterAnalysisResponsive.css
-└── tests/              # Test files
-    ├── WaterAnalysis.test.js
-    ├── browser-compatibility-test.js
-    └── style-consistency-check.js
+GPowerMB/
+├── public/             # Static files
+├── src/
+│   ├── components/     # Reusable UI components
+│   │   ├── water/      # Water analysis components
+│   │   ├── electricity/ # Electricity analysis components
+│   │   ├── stp/        # STP plant components
+│   │   └── contractor/ # Contractor components
+│   ├── data/           # Data files for all sections
+│   ├── layouts/        # Layout components
+│   ├── pages/          # Main page components
+│   └── styles/         # CSS and style files
+└── tailwind.config.js  # Tailwind CSS configuration
 ```
 
-## Getting Started
+## Deployment Instructions
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/ARahim900/GPowerMB.git
-   cd GPowerMB
-   ```
+### Deploying to Netlify
 
-2. Install dependencies:
-   ```
-   npm install
-   ```
+1. Connect your GitHub repository to Netlify
+2. Configure the build settings:
+   - Build command: `npm run build`
+   - Publish directory: `build`
+3. Advanced build settings:
+   - Add environment variable: `CI=false`
 
-3. Start the development server:
-   ```
-   npm start
-   ```
+The application includes:
+- Netlify configuration in `netlify.toml`
+- SPA redirect rule in `public/_redirects`
 
-4. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Developer Notes
 
-## Water Analysis Section
+- Primary color: `#4E4456`
+- Secondary color: `#8ED2D6`
+- Data is structured in separate files in the `src/data` folder
+- Components follow a consistent pattern across sections
 
-The Water Analysis section provides comprehensive water management tools:
+## Implementation Status
 
-- **Overview**: High-level summary of water consumption across all zones
-- **Group Details**: Zone-specific analysis with consumption breakdown
-- **Type Details**: Consumption analysis by property type
-- **Loss Details**: Water loss tracking and problem identification
+- ✅ Contractor Tracker - Complete
+- ✅ Electricity Analysis - Complete
+- ✅ Water Analysis - Complete
+- ✅ STP Plant - Complete
 
-### Key Features
+## Troubleshooting Deployment
 
-- **KPI Cards**: Real-time performance indicators
-- **Interactive Charts**: Data visualization with Recharts
-- **Smart Filters**: Month, year, and zone filtering
-- **Responsive Design**: Optimized for all device sizes
-- **Performance Optimized**: Lazy loading of tab content
+If you encounter issues with Netlify deployment:
 
-### Testing
-
-Run tests for the Water Analysis section:
-
-```
-npm test -- -t "WaterAnalysis"
-```
-
-See the [Testing Documentation](./src/tests/README.md) for more details.
-
-## Deployment
-
-Build the application for production:
-
-```
-npm run build
-```
-
-The build folder will contain optimized files ready for deployment.
-
-## Contributors
-
-- [ARahim900](https://github.com/ARahim900)
-
-## License
-
-MIT
+1. Ensure `CI=false` is set in the build environment
+2. Check that `public/_redirects` file is properly configured
+3. Verify that all dependencies are correctly listed in `package.json`
+4. Make sure React Router routes are correctly set up in `App.js`
