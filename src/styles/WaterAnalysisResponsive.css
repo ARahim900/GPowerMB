@@ -1,0 +1,113 @@
+/* Mobile styles (< 768px) */
+@media screen and (max-width: 767px) {
+  .water-dashboard {
+    padding: 10px;
+  }
+  
+  .kpi-cards {
+    flex-direction: column;
+  }
+  
+  .kpi-card {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .chart-container {
+    height: 300px;
+  }
+  
+  .data-table {
+    overflow-x: auto;
+  }
+
+  .water-analysis-tabs {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+
+  .water-analysis-tab-button {
+    padding: 8px 12px;
+    font-size: 0.875rem;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .filter-item {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+}
+
+/* Tablet styles (768px - 1023px) */
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .kpi-cards {
+    flex-wrap: wrap;
+  }
+  
+  .kpi-card {
+    width: 48%;
+    margin-bottom: 15px;
+  }
+  
+  .chart-container {
+    height: 350px;
+  }
+
+  .water-analysis-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .water-analysis-tab-button {
+    padding: 12px 16px;
+  }
+}
+
+/* Large screens (1024px and above) */
+@media screen and (min-width: 1024px) {
+  .water-dashboard {
+    padding: 20px;
+  }
+
+  .kpi-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .chart-container {
+    height: 400px;
+  }
+
+  .water-analysis-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Print styles */
+@media print {
+  .water-dashboard {
+    padding: 0;
+  }
+
+  .chart-container {
+    break-inside: avoid;
+  }
+
+  .water-analysis-actions,
+  .water-analysis-filters {
+    display: none;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 4px 8px;
+  }
+}
