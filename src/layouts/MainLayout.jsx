@@ -41,7 +41,7 @@ const MainLayout = () => {
             to="/water" 
             icon={<Droplet size={20} />} 
             label="Water Analysis" 
-            isActive={location.pathname === '/water'} 
+            isActive={location.pathname === '/water' || location.pathname === '/water-analysis'} 
             collapsed={collapsed} 
           />
           <NavItem 
