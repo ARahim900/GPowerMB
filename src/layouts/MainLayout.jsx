@@ -38,31 +38,31 @@ const MainLayout = () => {
             collapsed={collapsed} 
           />
           <NavItem 
-            to="/water-analysis" 
+            to="/water" 
             icon={<Droplet size={20} />} 
             label="Water Analysis" 
-            isActive={location.pathname === '/water-analysis'} 
+            isActive={location.pathname === '/water'} 
             collapsed={collapsed} 
           />
           <NavItem 
-            to="/electricity-analysis" 
+            to="/electricity" 
             icon={<Zap size={20} />} 
             label="Electricity Analysis" 
-            isActive={location.pathname === '/electricity-analysis'} 
+            isActive={location.pathname === '/electricity'} 
             collapsed={collapsed} 
           />
           <NavItem 
-            to="/stp-plant" 
+            to="/stp" 
             icon={<Building2 size={20} />} 
             label="STP Plant" 
-            isActive={location.pathname === '/stp-plant'} 
+            isActive={location.pathname === '/stp'} 
             collapsed={collapsed} 
           />
           <NavItem 
-            to="/contractor-tracker" 
+            to="/contractors" 
             icon={<Users size={20} />} 
             label="Contractor Tracker" 
-            isActive={location.pathname === '/contractor-tracker'} 
+            isActive={location.pathname.includes('/contractors')} 
             collapsed={collapsed} 
           />
         </nav>
