@@ -1,0 +1,81 @@
+/* Responsive styles for WaterAnalysis component */
+
+/* Mobile-first approach */
+@media (max-width: 768px) {
+  /* Adjust card grid for smaller screens */
+  .grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Adjust chart height for smaller screens */
+  .h-80 {
+    height: 300px;
+  }
+  
+  /* Adjust padding for small screens */
+  .p-6 {
+    padding: 1rem;
+  }
+  
+  /* Make tables more mobile-friendly */
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Adjust KPI cards for mobile */
+  .h-48 {
+    height: auto;
+    min-height: 160px;
+  }
+  
+  /* Filter section adjustments */
+  .flex.flex-wrap.items-center.justify-between.gap-2 {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .flex.flex-wrap.items-center.justify-between.gap-2 > div {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 769px) and (max-width: 1024px) {
+  /* Adjust card grid for medium screens */
+  .grid-cols-1.md\:grid-cols-2.lg\:grid-cols-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Print styles for reports */
+@media print {
+  .bg-gradient-to-r, 
+  .bg-primary, 
+  .bg-gray-50,
+  .bg-gray-100 {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .shadow,
+  .shadow-md,
+  .shadow-lg,
+  .shadow-xl {
+    box-shadow: none !important;
+  }
+  
+  .h-80 {
+    height: 400px !important;
+  }
+  
+  .text-white {
+    color: black !important;
+  }
+  
+  /* Hide navigation and filters when printing */
+  nav, 
+  .bg-white.border-b.border-gray-200.py-3.px-4,
+  button[onClick] {
+    display: none !important;
+  }
+}
