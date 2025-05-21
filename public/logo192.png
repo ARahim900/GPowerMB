@@ -1,0 +1,6 @@
+// Creating empty files via text is not ideal for binary files like logos
+// This will be a simple SVG placeholder instead
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
+  <rect width="100%" height="100%" fill="#4E4456"/>
+  <text x="50%" y="50%" fill="#8ED2D6" font-family="Arial, sans-serif" font-size="40" text-anchor="middle" dominant-baseline="middle">GPowerMB</text>
+</svg>
