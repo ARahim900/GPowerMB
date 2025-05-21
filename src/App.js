@@ -18,6 +18,7 @@ function App() {
           <Route path="contractors/:id" element={<ContractorDetail />} />
           <Route path="contractors/finance" element={<ContractorFinance />} />
           <Route path="water" element={<WaterAnalysis />} />
+          <Route path="water-analysis" element={<WaterAnalysis />} />
           <Route path="electricity" element={<ElectricityAnalysis />} />
           <Route path="stp" element={<STPPlant />} />
         </Route>
