@@ -5,7 +5,7 @@ import {
 } from 'recharts';
 import { 
   AlertTriangle, Droplet, TrendingUp, TrendingDown, 
-  CircleAlert, CheckCircle, CircleOff, BarChart2, PieChart as PieChartIcon
+  AlertCircle, CheckCircle, CircleOff, BarChart2, PieChart as PieChartIcon
 } from 'lucide-react';
 
 import { 
@@ -205,7 +205,7 @@ const LossDetails = ({
               </p>
             </div>
             <div className="p-2 bg-yellow-100 rounded-full">
-              <CircleAlert size={20} className="text-yellow-600" />
+              <AlertCircle size={20} className="text-yellow-600" />
             </div>
           </div>
           <p className="mt-2 text-sm text-gray-500">
