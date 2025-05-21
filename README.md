@@ -1,62 +1,112 @@
-# GPowerMB - Muscat Bay Utility Management System
+# GPowerMB Dashboard
 
-A modern SAAS dashboard application for managing water, electricity, STP plant, and contractor data for Muscat Bay utility management.
+Muscat Bay Utility Management System - Modern SAAS dashboard application for managing water, electricity, STP plant and contractor data.
 
-## Features
+## Project Sections
 
-- Dashboard overview with key performance metrics
-- Water Analysis module for monitoring water supply and consumption
-- Electricity Analysis for power consumption tracking
-- STP Plant monitoring system
-- Contractor Tracker for managing service providers
+1. **Water Analysis**: Comprehensive water supply and consumption analysis
+2. **Electricity Analysis**: Power consumption tracking and analysis
+3. **STP Plant**: Sewage treatment plant monitoring
+4. **Contractor Tracker**: Contractor management and performance tracking
 
-## Tech Stack
+## Implementation Status
 
-- React for the frontend UI
-- Tailwind CSS for styling
-- Recharts for data visualization
-- React Router for navigation
-- Lucide React for SVG icons
+- ✅ Contractor Tracker
+- ✅ Electricity Analysis
+- ✅ Water Analysis
+- ✅ STP Plant
 
-## Getting Started
+## Technical Stack
 
-### Prerequisites
-
-- Node.js (v14 or later)
-- npm or yarn
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/ARahim900/GPowerMB.git
-
-# Navigate to project directory
-cd GPowerMB
-
-# Install dependencies
-npm install
-
-# Start development server
-npm start
-```
+- **Frontend**: React, Tailwind CSS
+- **Charting**: Recharts
+- **Icons**: Lucide React
+- **Routing**: React Router
+- **Primary Color**: #4E4456
 
 ## Project Structure
 
-- `/src`: Source code
-  - `/components`: Reusable UI components
-  - `/layouts`: Page layout components
-  - `/pages`: Main page components for each section
-  - `/data`: Mock data for development
-  - `/utils`: Utility functions
-  - `/hooks`: Custom React hooks
-  - `/context`: React context providers
-  - `/assets`: Static assets like images and icons
+```
+src/
+├── components/         # Reusable UI components
+│   └── water/          # Water Analysis components
+├── data/               # Data files for each section
+├── layouts/            # Page layouts (sidebar, header)
+├── pages/              # Main page components
+│   ├── Dashboard.jsx
+│   ├── WaterAnalysis.jsx
+│   ├── ElectricityAnalysis.jsx
+│   ├── STPPlant.jsx
+│   └── ContractorTracker.jsx
+├── styles/             # CSS styling
+│   └── WaterAnalysisResponsive.css
+└── tests/              # Test files
+    ├── WaterAnalysis.test.js
+    ├── browser-compatibility-test.js
+    └── style-consistency-check.js
+```
 
-## Main Sections
+## Getting Started
 
-- **Dashboard**: Overview of all key metrics
-- **Water Analysis**: Detailed water usage metrics and trends
-- **Electricity Analysis**: Power consumption and distribution analytics
-- **STP Plant**: Sewage treatment plant monitoring
-- **Contractor Tracker**: Vendor and service provider management
+1. Clone the repository:
+   ```
+   git clone https://github.com/ARahim900/GPowerMB.git
+   cd GPowerMB
+   ```
+
+2. Install dependencies:
+   ```
+   npm install
+   ```
+
+3. Start the development server:
+   ```
+   npm start
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+## Water Analysis Section
+
+The Water Analysis section provides comprehensive water management tools:
+
+- **Overview**: High-level summary of water consumption across all zones
+- **Group Details**: Zone-specific analysis with consumption breakdown
+- **Type Details**: Consumption analysis by property type
+- **Loss Details**: Water loss tracking and problem identification
+
+### Key Features
+
+- **KPI Cards**: Real-time performance indicators
+- **Interactive Charts**: Data visualization with Recharts
+- **Smart Filters**: Month, year, and zone filtering
+- **Responsive Design**: Optimized for all device sizes
+- **Performance Optimized**: Lazy loading of tab content
+
+### Testing
+
+Run tests for the Water Analysis section:
+
+```
+npm test -- -t "WaterAnalysis"
+```
+
+See the [Testing Documentation](./src/tests/README.md) for more details.
+
+## Deployment
+
+Build the application for production:
+
+```
+npm run build
+```
+
+The build folder will contain optimized files ready for deployment.
+
+## Contributors
+
+- [ARahim900](https://github.com/ARahim900)
+
+## License
+
+MIT
